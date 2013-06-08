@@ -1,0 +1,14 @@
+.ja-actor-container {
+    -shell-grid-horizontal-item-size: 250px;
+    -shell-grid-vertical-item-size: 130px;
+}
+
+.ja-actor {
+    text-align: left;
+    padding: 10px;
+}
+
+.ja-actor .name-label {
+    font-weight: bold;
+    font-size: 1.1em;
+}
