@@ -9,14 +9,12 @@ const _httpSession = new Soup.SessionAsync();
 Soup.Session.prototype.add_feature.call(_httpSession, new Soup.ProxyResolverDefault());
 
 
-// jaResult object is where the displayment layout for each result is configured.
-var jaResult;
-
+// jaResult is where the displayment layout for each result is configured.
 function JaResult(result) {
     this._init(result);
 }
 
-jaResult.prototype = {
+JaResult.prototype = {
     _init: function (resultMeta) {
         this.actor = new St.Bin({
             reactive: true,
@@ -152,7 +150,7 @@ JaProvider.prototype = {
     },
 
     getResultMeta: function (id) {
-        let result = this._results[id];
+        let result = this._results[id],
             person = {
                 id: result.common_id,
                 name: result.title,
