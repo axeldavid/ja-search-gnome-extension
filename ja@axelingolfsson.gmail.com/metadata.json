@@ -2,6 +2,6 @@
     "shell-version": ["3.6.3.1"],
     "uuid": "ja@axelingolfsson.gmail.com",
     "name": "Search ja.is",
-    "description": "ja.is is an Icelandic online phone catalogue that provides contact information for most people and organizations in Iceland.\nThis extension shows search results from ja.is in the gnome search overview.\nTo view search results from ja.is, type the prefix \"ja \" followed by your search string.",
+    "description": "ja.is is an Icelandic online phone catalogue that provides contact information for most people and organizations in Iceland.\nThis extension shows search results from ja.is in the gnome search overview.\n\nTo view search results from ja.is, type the prefix \"ja \" followed by your search string.\n\nIt should be noted that this extension is not connected to the organization Já in any way.",
     "url": "https://github.com/axeldavid/ja-search-gnome-extension/"
 }
