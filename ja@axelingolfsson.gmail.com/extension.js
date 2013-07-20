@@ -2,7 +2,6 @@ const St = imports.gi.St;
 const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 const Main = imports.ui.main;
-const Search = imports.ui.search;
 const Soup = imports.gi.Soup;
 
 const _httpSession = new Soup.SessionAsync();
@@ -83,15 +82,11 @@ JaResult.prototype = {
  * */
 var jaProvider;
 
-function JaProvider () {
-    this._init();
-}
-
-JaProvider.prototype = {
-    __proto__: Search.SearchProvider.prototype,
+const JaProvider = new Lang.Class({
+    Name: 'JaProvider',
 
     _init: function () {
-        Search.SearchProvider.prototype._init.call(this, 'JA.IS');
+        this.parent('JA.IS');
     },
 
     _results : {},
@@ -195,7 +190,7 @@ JaProvider.prototype = {
         let url = 'http://ja.is/?q=' + person.title + '%2C%20' + person.address;
         Gio.app_info_launch_default_for_uri(url, null);
     }
-}
+});
 
 function init() {
     jaProvider = new JaProvider();
