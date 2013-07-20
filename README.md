@@ -2,8 +2,9 @@
 Search ja.is is an extension for the [Gnome Desktop environment](http://www.gnome.org/) that shows search results from [ja.is](http://ja.is/) in the Gnome search overview.
 
 [ja.is](http://ja.is/) is an Icelandic online phone catalogue that provides contact information for most people and organizations in Iceland.
+It shold be noted that this extension is not connected to the organization *Já Upplýsingaveitur hf* in any way.
 
-Note that the only currently supported Gnome version is Gnome 3.6.
+The currently supported Gnome versions are Gnome 3.6 and Gnome 3.8 but at the moment the extension is only available for Gnome 3.6 if installed from [extensions.gnome.org](https://extensions.gnome.org/extension/691/search-jais/), 
 
 ### Installation
 The easiest way to install this extension is through the [Gnome extension website](https://extensions.gnome.org/extension/691/search-jais/). From there, the rest is very straight forward.
