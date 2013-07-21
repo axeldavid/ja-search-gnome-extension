@@ -14,6 +14,8 @@ main() {
         disable_extension
     elif [ $1 = "remove" ]; then
         remove_extension
+    elif [ $1 = "help" ]; then
+        help
     fi
 }
 
@@ -46,6 +48,15 @@ disable_extension() {
 
 remove_extension() {
     `rm -r ~/.local/share/gnome-shell/extensions/$PLUGIN_UUID`
+}
+
+help() {
+    echo "./manage zip      # Create a zip file under data/ ready for extensions.gnome.org"
+    echo "./manage live     # Setup the extension on this maschine"
+    echo "./manage remove   # Remove the extension from this maschine"
+    echo "./manage enable   # Enable the extension"
+    echo "./manage disable  # Disable the extension"
+    echo "./manage help     # Show this help message"
 }
 
 main "$@"
