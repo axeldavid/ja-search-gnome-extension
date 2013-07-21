@@ -8,6 +8,12 @@ main() {
         create_zip
     elif [ $1 = "live" ]; then
         setup_live
+    elif [ $1 = "enable" ]; then
+        enable_extension
+    elif [ $1 = "disable" ]; then
+        disable_extension
+    elif [ $1 = "remove" ]; then
+        remove_extension
     fi
 }
 
@@ -28,6 +34,18 @@ create_zip() {
 
 setup_live() {
     `cp -r $PLUGIN_UUID ~/.local/share/gnome-shell/extensions/`
+}
+
+enable_extension() {
+    `gnome-shell-extension-tool -e $PLUGIN_UUID`
+}
+
+disable_extension() {
+    `gnome-shell-extension-tool -d $PLUGIN_UUID`
+}
+
+remove_extension() {
+    `rm -r ~/.local/share/gnome-shell/extensions/$PLUGIN_UUID`
 }
 
 main "$@"
