@@ -6,6 +6,8 @@ It shold be noted that this extension is not connected to the organization *Já 
 
 The currently supported Gnome versions are Gnome 3.6 and Gnome 3.8 but at the moment the extension is only available for Gnome 3.6 if installed from [extensions.gnome.org](https://extensions.gnome.org/extension/691/search-jais/), 
 
+This program is licensed under [GPL v3](ja@axelingolfsson.gmail.com/COPYING).
+
 ### Installation
 The easiest way to install this extension is through the [Gnome extension website](https://extensions.gnome.org/extension/691/search-jais/). From there, the rest is very straight forward.
 
