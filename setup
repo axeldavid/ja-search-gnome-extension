@@ -1,0 +1,33 @@
+#!/usr/bin/bash
+
+PLUGIN_UUID="ja@axelingolfsson.gmail.com"
+DATA_DIR="data"
+
+main() {
+    if [ $1 = "zip" ]; then
+        create_zip
+    elif [ $1 = "live" ]; then
+        setup_live
+    fi
+}
+
+check_data() {
+    # Check if folder data exists, if not, create it
+    if [ ! -d $DATA_DIR ]
+    then
+        echo "Creating directory data"
+        mkdir $DATA_DIR
+    fi
+}
+
+create_zip() {
+    check_data
+    zipcommand="zip -j data/"$PLUGIN_UUID".zip "$PLUGIN_UUID"/*"
+    $zipcommand
+}
+
+setup_live() {
+    `cp -r $PLUGIN_UUID ~/.local/share/gnome-shell/extensions/`
+}
+
+main "$@"
