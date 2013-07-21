@@ -92,9 +92,6 @@ JaResult.prototype = {
     }
 }
 
-/* JaProvider object is a subclass of Search.SearchProvider and is where all
- * the search logic is defined.
- * */
 var jaProvider;
 
 const JaProvider = new Lang.Class({
