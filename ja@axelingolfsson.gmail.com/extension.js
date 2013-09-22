@@ -52,42 +52,46 @@ JaResult.prototype = {
             x_align: St.Align.START
         });
 
-        let nameLabel = new St.Label({
-            text: resultMeta.name,
-            style_class: 'name-label'
-        });
+        result.add(
+            new St.Label({
+                text: resultMeta.name,
+                style_class: 'name-label'
+            }), {
+                x_fill: false,
+                x_align: St.Align.START
+            }
+        );
 
-        let addressLabel = new St.Label({
-            text: resultMeta.address,
-        });
+        if (resultMeta.occupation) {
+            result.add(
+                new St.Label({
+                    text: resultMeta.occupation,
+                }), {
+                    x_fill: false,
+                    x_align: St.Align.START
+                }
+            );
+        }
 
-        let phoneLabel = new St.Label({
-            text: resultMeta.phones,
-        });
+        if (resultMeta.address) {
+            result.add(
+                new St.Label({
+                    text: resultMeta.address,
+                }), {
+                    x_fill: false,
+                    x_align: St.Align.START
+                }
+            );
+        }
 
-        let emailLabel = new St.Label({
-            text: resultMeta.email,
-        });
-
-        result.add(nameLabel, {
-            x_fill: false,
-            x_align: St.Align.START
-        });
-
-        result.add(addressLabel, {
-            x_fill: false,
-            x_align: St.Align.START
-        });
-
-        result.add(phoneLabel, {
-            x_fill: false,
-            x_align: St.Align.START
-        });
-
-        result.add(emailLabel, {
-            x_fill: false,
-            x_align: St.Align.START
-        });
+        result.add(
+            new St.Label({
+                text: resultMeta.phone,
+            }), {
+                x_fill: false,
+                x_align: St.Align.START
+            }
+        );
 
     }
 }
@@ -128,18 +132,19 @@ const JaProvider = new Lang.Class({
         }
 
         let that = this;
-        let url = 'http://en.ja.is/kort/search_json/?q=' + terms.join('%20') + '*';
+        let url = 'http://ja.is/search/?term=' + terms.join('%20') + '*';
         let request = Soup.Message.new('GET', url);
 
         _httpSession.queue_message(request, Lang.bind(this, function(_httpSession, message) {
             if (message.status_code === 200) {
-                let results = JSON.parse(request.response_body.data).map.items,
+                let all_results = JSON.parse(request.response_body.data).results,
+                    results = all_results.white.concat(all_results.yellow),
                     ids = [];
 
                 for (let i = 0; i < results.length; i++) {
                     let person = results[i];
-                    that._results[person.common_id] = person;
-                    ids.push(person.common_id)
+                    that._results[person.nameid] = person;
+                    ids.push(person.nameid)
                 }
 
                 that.searchSystem.pushResults(this, ids);
@@ -150,8 +155,9 @@ const JaProvider = new Lang.Class({
     getSubsearchResultSet: function (prevResults, terms) {
         /* The ja.is api that we use can handle more powerful search queries
          * then we can, using our json object. For instance, we can search by
-         * occupation but we don't have that in our json object. Therefore, we
-         * will always make a new network query when we get new search terms.
+         * postal station or city but we don't have that in our json object.
+         * Therefore, we will always make a new network query when we get new
+         * search terms.
          * */
         this.getInitialResultSet(terms);
     },
@@ -159,27 +165,11 @@ const JaProvider = new Lang.Class({
     getResultMeta: function (id) {
         let result = this._results[id],
             person = {
-                id: result.common_id,
+                id: result.nameid,
                 name: result.title,
-                address: (function () {
-                    // Join street and postal station by comma
-                    let full_address = [result.address, result.postal_station];
-                    return full_address.filter(function (i) {
-                        return typeof i != undefined;
-                    }).join(', ');
-                })(),
-                phones: (function () {
-                    // Join all phone numbers by comma
-                    let phone = result.phone || null,
-                        phones = result.additional_phones || [];
-                    if (phone) {
-                        phones.unshift(phone)
-                    }
-                    return phones.map(function (p) {
-                        return p.pretty;
-                    }).join(', ');
-                })(),
-                email: result.email || ''
+                occupation: result.occupation || null,
+                address: result.address,
+                phone: result.number
             };
         return person;
     },
